@@ -16,6 +16,9 @@
   --brand-primary: #d9fb06;
   --brand-hover: rgba(217, 251, 6, 0.8);
   --brand-active: rgba(217, 251, 6, 0.6);
+
+  /* easy tweak later */
+  --hero-title-color: var(--text-primary);
 }
 
 /* Typography */
@@ -28,7 +31,7 @@ body {
   font-weight: 900;
   font-size: clamp(3rem, 2.5rem + 2vw, 4.5rem);
   line-height: 0.9;
-  color: var(--text-primary);
+  color: var(--hero-title-color);
   text-transform: uppercase;
 }
 .heading-4 { font-weight: 600; font-size: 1.5rem; }

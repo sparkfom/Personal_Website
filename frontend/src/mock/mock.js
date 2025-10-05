@@ -16,9 +16,9 @@ export const hero = {
   ctaPrimary: "Request a project consult",
   ctaSecondary: "View services",
   bgImage:
-    "https://images.unsplash.com/photo-1705909773420-8d7af2a343f9?auto=format&amp;fit=crop&amp;w=1600&amp;q=60",
+    "https://images.unsplash.com/photo-1705909773420-8d7af2a343f9?auto=format&fit=crop&w=1600&q=60",
   headshot:
-    "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&amp;fit=crop&amp;w=600&amp;q=60",
+    "https://customer-assets.emergentagent.com/job_efficiency-lab/artifacts/o6byij9e_Bild_2025-10-05_133230573.png",
   headshotAlt: "Benjamin Schwarz — process consultant"
 };
 
