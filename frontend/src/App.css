@@ -112,7 +112,7 @@ body {
 .card-glass { background: rgba(255,255,255,0.04); border: 1px solid var(--border-light); backdrop-filter: blur(16px); border-radius: 16px; }
 
 /* Ribbon: moved below text, placed under overlay, reduced opacity */
-.creative-ribbon { position: absolute; right: -10%; left: auto; bottom: 12%; width: 70%; height: 44px; background: var(--brand-primary); color: var(--text-inverse); transform: rotate(7deg); display: flex; align-items: center; justify-content: center; font-weight: 700; text-transform: uppercase; opacity: 0.5; z-index: 1; pointer-events: none; }
+.creative-ribbon { position: absolute; right: -6%; left: auto; bottom: 16%; width: 60%; height: 44px; background: var(--brand-primary); color: var(--text-inverse); transform: rotate(20deg); display: flex; align-items: center; justify-content: center; font-weight: 700; text-transform: uppercase; opacity: 0.5; z-index: 1; pointer-events: none; }
 .creative-ribbon-back { position: absolute; left: -10%; bottom: 4%; width: 120%; height: 44px; background: var(--border-medium); color: var(--text-primary); transform: rotate(-5deg); display: flex; align-items: center; justify-content: center; font-weight: 700; text-transform: uppercase; opacity: 0.25; z-index: 1; pointer-events: none; }
 
 @media (max-width: 991px) {
