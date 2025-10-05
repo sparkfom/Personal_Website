@@ -100,4 +100,93 @@
 
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
+
+user_problem_statement: Build Benjamin Schwarz consulting site with working contact form, file upload, CV endpoint
+backend:
+  - task: "Hello World root"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Root /api returns Hello World"
+  - task: "Chunked uploads endpoints"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Implemented initiate/chunk/complete using temp dir and final file save; pending testing"
+  - task: "Consult Requests create/list"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Implemented POST/GET consult-requests; pending testing"
+  - task: "CV endpoint"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Implemented /api/cv redirect to hosted PDF; pending testing"
+frontend:
+  - task: "Landing page UI (Gilshar)"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "User approved, reduced ribbons, good readability"
+  - task: "Contact form wired to backend"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Integrated chunked upload and POST to backend; requires backend test first"
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 0
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Test uploads endpoints"
+    - "Test consult-requests endpoints"
+    - "Test CV redirect"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Please run backend tests for uploads (initiate, chunk, complete), consult-requests (create/list), and cv redirect. No auth. Use /api prefix."
+
 #====================================================================================================
