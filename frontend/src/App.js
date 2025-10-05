@@ -11,8 +11,10 @@ import { Input } from "./components/ui/input";
 import { Textarea } from "./components/ui/textarea";
 import { Label } from "./components/ui/label";
 import { Toaster } from "./components/ui/sonner";
+import { Progress } from "./components/ui/progress";
 import { toast } from "sonner";
 import { CheckCircle2, Factory, FlaskConical, LineChart, Wrench, Layers, ArrowRight, Mail, FileDown } from "lucide-react";
+import { chunkedUpload } from "./utils/uploader";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = BACKEND_URL ? `${BACKEND_URL}/api` : "/api";
@@ -34,6 +36,7 @@ function HomePage() {
   }, []);
 
   const [submitting, setSubmitting] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -51,23 +54,46 @@ function HomePage() {
     setForm((s) => ({ ...s, [name]: files ? files[0] : value }));
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
+    setProgress(0);
+    try {
+      let attachment_id = undefined;
+      if (form.file) {
+        const res = await chunkedUpload(form.file, (p) => setProgress(p));
+        attachment_id = res.file_id;
+      }
+
+      const payload = {
+        name: form.name,
+        company: form.company || undefined,
+        role: form.role || undefined,
+        summary: form.summary,
+        start_date: form.startDate || undefined,
+        budget: form.budget || undefined,
+        attachment_id,
+      };
+
+      await axios.post(`${API}/consult-requests`, payload);
+
+      toast.success("Consult request sent. I will reply shortly.");
+      setForm({ name: "", company: "", role: "", summary: "", startDate: "", budget: "", file: null });
+      setProgress(0);
+    } catch (err) {
+      // Fallback to local storage on failure
       try {
         const submissions = JSON.parse(localStorage.getItem("consult_requests") || "[]");
-        const payload = { ...form, id: Date.now() };
-        submissions.push(payload);
+        const localPayload = { ...form, id: Date.now() };
+        submissions.push(localPayload);
         localStorage.setItem("consult_requests", JSON.stringify(submissions));
-        toast.success("Consult request sent. I will reply shortly.");
-        setForm({ name: "", company: "", role: "", summary: "", startDate: "", budget: "", file: null });
-      } catch (err) {
-        toast.error("Could not save your request locally. Please try again.");
-      } finally {
-        setSubmitting(false);
+        toast.success("Saved locally (offline). Will send later.");
+      } catch (e2) {
+        toast.error("Could not submit your request. Please try again.");
       }
-    }, 700);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const scrollToContact = () => {
@@ -343,6 +369,12 @@ function HomePage() {
                     <Input id="file" type="file" accept="application/pdf" name="file" onChange={onChange} className="bg-transparent" />
                   </div>
                 </div>
+                {submitting && form.file ? (
+                  <div className="space-y-2">
+                    <p className="caption">Uploading attachment… {progress}%</p>
+                    <Progress value={progress} className="w-full" />
+                  </div>
+                ) : null}
                 <div className="flex items-center gap-3">
                   <Button disabled={submitting} className="btn-primary">
                     {submitting ? "Sending..." : "Request a consult"}
