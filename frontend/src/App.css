@@ -18,7 +18,7 @@
   --brand-active: rgba(217, 251, 6, 0.6);
 
   /* easy tweak later */
-  --hero-title-color: var(--text-primary);
+  --hero-title-color: #c6e900;
 }
 
 /* Typography */
