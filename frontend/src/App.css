@@ -97,20 +97,24 @@ body {
 .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 @media (max-width: 767px) { .container { padding: 0 20px; } }
 
-/* Hero */
+/* Hero layering for readability */
 .hero-section { position: relative; min-height: 92vh; display: flex; align-items: center; padding: 120px 0 80px; overflow: hidden; }
-.hero-background { position: absolute; inset: 0; }
-.hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, #000 0%, rgba(0,0,0,0.1) 100%); opacity: 0.6; }
-.hero-content { position: relative; z-index: 1; max-width: 26ch; }
+.hero-background { position: absolute; inset: 0; z-index: 0; }
+.hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, #000 0%, rgba(0,0,0,0.1) 100%); opacity: 0.65; z-index: 2; }
+.hero-content { position: relative; z-index: 3; max-width: 26ch; }
 
 /* Cards */
 .card { background: rgba(255,255,255,0.05); border: 1px solid var(--border-light); border-radius: 16px; }
 .card-glass { background: rgba(255,255,255,0.04); border: 1px solid var(--border-light); backdrop-filter: blur(16px); border-radius: 16px; }
 
-/* Ribbon */
-.creative-ribbon { position: absolute; left: -10%; bottom: 28%; width: 120%; height: 66px; background: var(--brand-primary); color: var(--text-inverse); transform: rotate(7deg); display: flex; align-items: center; justify-content: center; font-weight: 700; text-transform: uppercase; }
-.creative-ribbon-back { position: absolute; left: -10%; bottom: 22%; width: 120%; height: 66px; background: var(--border-medium); color: var(--text-primary); transform: rotate(-5deg); display: flex; align-items: center; justify-content: center; font-weight: 700; text-transform: uppercase; }
+/* Ribbon: moved below text, placed under overlay, reduced opacity */
+.creative-ribbon { position: absolute; left: -10%; bottom: 8%; width: 120%; height: 44px; background: var(--brand-primary); color: var(--text-inverse); transform: rotate(7deg); display: flex; align-items: center; justify-content: center; font-weight: 700; text-transform: uppercase; opacity: 0.5; z-index: 1; pointer-events: none; }
+.creative-ribbon-back { position: absolute; left: -10%; bottom: 4%; width: 120%; height: 44px; background: var(--border-medium); color: var(--text-primary); transform: rotate(-5deg); display: flex; align-items: center; justify-content: center; font-weight: 700; text-transform: uppercase; opacity: 0.25; z-index: 1; pointer-events: none; }
+
+@media (max-width: 991px) {
+  .creative-ribbon, .creative-ribbon-back { display: none; }
+}
 
 /* Utility */
 .section { padding: 80px 0; }
