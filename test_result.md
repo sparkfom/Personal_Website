@@ -114,39 +114,51 @@ backend:
       - working: true
         agent: "main"
         comment: "Root /api returns Hello World"
+      - working: true
+        agent: "testing"
+        comment: "Tested GET /api/ - returns correct {message: Hello World} response with 200 status"
   - task: "Chunked uploads endpoints"
     implemented: true
-    working: false
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "main"
         comment: "Implemented initiate/chunk/complete using temp dir and final file save; pending testing"
+      - working: true
+        agent: "testing"
+        comment: "Tested complete upload flow: initiate (business_proposal.pdf, 2 chunks, 2048 bytes) -> chunk uploads (1KB each) -> complete. All endpoints working correctly, returns proper file_id, filename, and size"
   - task: "Consult Requests create/list"
     implemented: true
-    working: false
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "main"
         comment: "Implemented POST/GET consult-requests; pending testing"
+      - working: true
+        agent: "testing"
+        comment: "Tested POST /api/consult-requests (created Sarah Johnson consulting request) and GET /api/consult-requests (returns array with created item). Both endpoints working correctly with proper data persistence"
   - task: "CV endpoint"
     implemented: true
-    working: false
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "main"
         comment: "Implemented /api/cv redirect to hosted PDF; pending testing"
+      - working: true
+        agent: "testing"
+        comment: "Tested GET /api/cv - returns 307 redirect to external PDF URL (https://customer-assets.emergentagent.com/job_d6d0531e-d939-4858-936b-14b530c1a68e/artifacts/z85mc8o3_Profile.pdf) as expected"
 frontend:
   - task: "Landing page UI (Gilshar)"
     implemented: true
