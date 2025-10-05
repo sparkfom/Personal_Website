@@ -150,10 +150,14 @@ async def complete_upload(body: UploadComplete):
 
     # Clean tmp
     for p in tmp_dir.iterdir():
-        try: p.unlink()
-        except Exception: pass
-    try: tmp_dir.rmdir()
-    except Exception: pass
+        try:
+            p.unlink()
+        except Exception:
+            pass
+    try:
+        tmp_dir.rmdir()
+    except Exception:
+        pass
 
     record = UploadRecord(filename=filename, size=size, path=str(final_path), mime_type=mime_type)
     await db.uploads.insert_one(record.dict())
